@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Carme&display=swap" rel="stylesheet">
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+</head>
+
+<body class="dark">
+
+  <!--loading screen-->
+  <div id="connect" class="Connection">
+    <h1 class="server-pass" id="server-pass">Hello World!</h1>
+    <h1 class="server-connect" id="server-connect">
+      <center></center>Connecting...
+    </h1>
+    <div class="stuff">
+      <div>
+        <img width="50px" style="border-radius:10px;"
+          src="https://play-lh.googleusercontent.com/T0H_E0L6I5ws_7_XD1W6XE2_Jk10lLBGK-hAbM1iG07glDqhDOxRZoq4y03nwMr54wM">
+      </div>
+
+      <div style="padding-top:5px;padding-left:5px;">Inspired By <br> Al hosn</div>
+      <br>
+      <p>Beta 0.1</p>
+    </div>
+
+  </div>
+
+  <!--dadhboard-->
+  <center>
+    <div id="Dashboard" class="dashboard" style="display:none;">
+
+      <h1 style="text-align: left;">Dashboard</h1>
+      <ul class="dash">
+        <li id="doses" title="Vaccinated">
+          <div>
+            <label class="total-doses" title="Total Vaccine Doses">Vaccinated</label><br><br>
+            <span id="vac" class="counter"></span>
+          </div>
+        </li>
+
+
+        <li id="total" title="Cases">
+          <div>
+
+            <label title="Cases">Cases</label><br><br>
+            <span id="case" class="counter"></span>
+
+          </div>
+        </li>
+
+        <li id="deaths" title="Deceased">
+          <div>
+            <label title="Deceased">Deceased</label><br><br>
+            <span id="ded" class="counter"></span>
+
+          </div>
+        </li>
+        <li id="recovered" title="Recovered">
+          <div>
+            <label title="Recovered">Recovered</label><br><br>
+            <span id="rec" class="counter"></span>
+
+          </div>
+        </li>
+
+      </ul><br><br>
+      <p onclick="Displayreports(this.title)" title="COVID Reports"
+        style="padding-right:50px;color:#4287f5;cursor: pointer;text-align:right;">View Reports</p><br><br><br>
+      <canvas id="myChart" style="width:100%;max-width:600px;color:#fff;"></canvas>
+
+
+
+    </div>
+  </center>
+
+  <!--pcr reports-->
+  <div id="reports" class="rep" style="display:none;">
+    <i onclick="opendashboard()" class="fi-rr-angle-small-left"></i>
+    <h2>COVID Reports</h2>
+    <div class="container">
+      <div onclick="AddUser()" title="Add User"
+        style="padding-right:50px;color:#4287f5;cursor: pointer;text-align:right;">
+        <div>
+          <label title="Recovered">Add User</label>
+        </div>
+      </div>
+      <ul class="responsive-table" id="reports-table">
+        <li class="table-header">
+          <div class="col col-1">
+
+            <button onclick="togfilteremid()" class="filter">Emirates ID &nbsp;<i
+                class="fi-rr-angle-small-down"></i></button>
+            <div id="filteremid" class="filter-content">
+              <input class="searcher" oninput="filter('')" type="text" placeholder="Search By Emirates ID" id="emid">
+            </div>
+
+          </div>
+          <div class="col col-2">
+            <button onclick="togfiltername()" class="filter">Name &nbsp;<i class="fi-rr-angle-small-down"></i></button>
+            <div id="filtername" class="filter-content">
+              <input class="searcher" oninput="filter('')" type="text" placeholder="Search By Name" id="names">
+            </div>
+          </div>
+          <div class="col col-3">
+            <button onclick="togfilterage()" class="filter">Age &nbsp;<i class="fi-rr-angle-small-down"></i></button>
+            <div id="filterage" class="filter-content">
+              <input class="searcher" oninput="filter('')" type="number" maxlength="3" placeholder="Search by age"
+                id="age">
+            </div>
+          </div>
+          <div class="col col-4">
+            <button onclick="togfilterstatus()" class="filter">Status &nbsp;<i
+                class="fi-rr-angle-small-down"></i></button>
+            <div id="filterstatus" class="filter-content">
+              <a href="#" onclick="filter('','cs')">Clear Filter</a>
+              <a href="#" onclick="filter(this.id,'s')" id="-">Negative</a>
+              <a href="#" onclick="filter(this.id,'s')" id="+">Positive</a>
+              <a href="#" onclick="filter(this.id,'s')" id="d">Deceased</a>
+              <a href="#" onclick="filter(this.id,'s')" id="n">Out Dated</a>
+            </div>
+          </div>
+          <div class="col col-5">
+            <button onclick="togfiltervac()" class="filter">Vaccinated &nbsp;<i
+                class="fi-rr-angle-small-down"></i></button>
+            <div id="filtervac" class="filter-content">
+              <a href="#" onclick="filter('','cv')">Clear Filter</a>
+              <a href="#" onclick="filter(this.id,'v')" id="1">Yes</a>
+              <a href="#" onclick="filter(this.id,'v')" id="0">No</a>
+            </div>
+          </div>
+        </li>
+        <div id="reports-table-content"></div>
+      </ul>
+
+    </div>
+  </div>
+
+
+  <!--user data-->
+  <div id="Details" class="dialog">
+
+    <div id="Detail-Content" class="Details-content">
+    </div>
+
+  </div>
+
+  <!--add user-->
+  <div id="Add" class="dialog">
+
+    <div id="Add-Content" class="Details-content">
+      <div class="froms">
+        <input id="addid" type="text" placeholder="Enter Emirates ID"><br><br>
+
+        <input id="addname" type="text" placeholder="Enter Name"><br><br>
+
+        <input id="addage" type="number" placeholder="Enter Age"><br><br>
+
+        <input id="addgender" type="text" placeholder="Gender"><br><br>
+        <button class="btnz" onclick="AddNewUser()" type="button">Add User</button><br>
+        <p id="erroramessage"></p><br>
+      </div>
+    </div>
+
+  </div>
+
+
+</body>
+
+<style>
+  .reports {
+
+    padding: 10px;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: left;
+    background-color: #d0d0d0;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.2);
+
+
+  }
+
+  .rep {
+
+    animation-name: intro2;
+    animation-duration: .5s;
+
+  }
+
+  .dashboard {
+
+    animation-name: intro2;
+    animation-duration: .5s;
+
+  }
+
+  .froms input {
+    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.2);
+    margin-top: 25px;
+    border: none;
+    padding: 10px;
+    width: 300px;
+    text-align: center;
+    border-radius: 5px;
+  }
+
+  .filter-content a {
+    color: black;
+    padding: 12px 16px;
+
+    text-decoration: none;
+    display: block;
+
+  }
+
+  .dates {
+
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.2);
+    border: none;
+
+  }
+
+  #resultupdate {
+    display: none;
+  }
+
+  #vaccinatonupdate {
+    display: none;
+
+  }
+
+  #userupdate {
+    display: none;
+
+  }
+
+  #userdelete {
+    display: none;
+
+  }
+
+  .btnzf {
+    width: 220px;
+    height: 50px;
+    color: transparent;
+    background: #262626;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: all .3s ease-in-out;
+    border-radius: 10px;
+  }
+
+  .btnzf::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+
+  .btnzf::before {
+    content: 'Upload Excel';
+    color: #fff;
+    display: inline-block;
+    padding-top: 15px;
+    padding-left: 70px;
+  }
+
+  .btnz {
+    width: 220px;
+    height: 50px;
+    color: #fff;
+    background: #262626;
+    border: none;
+    margin: 10px;
+    cursor: pointer;
+    position: relative;
+    transition: all .3s ease-in-out;
+    border-radius: 10px;
+  }
+
+  .btnz:hover {
+    background: #fff;
+    color: #000;
+  }
+
+  .btnzf:hover {
+    background: #fff;
+  }
+
+  .btnzf:hover::before {
+    color: #000;
+  }
+
+  .filter {
+    background-color: rgba(0, 0, 0, 0);
+    color: black;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .filter-result {
+    background-color: #fff;
+    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    color: black;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .searcher {
+    box-sizing: border-box;
+    background-position: 14px 12px;
+    background-repeat: no-repeat;
+    font-size: 16px;
+    padding: 14px 20px 12px 45px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  #emid:focus {
+    outline: 3px solid #ddd;
+  }
+
+
+
+  .filter-content {
+    display: none;
+    position: absolute;
+    background-color: #f6f6f6;
+    min-width: 230px;
+    border-radius: 10px;
+
+    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.2);
+    margin-top: 25px;
+    overflow: auto;
+    border: 1px solid #ddd;
+    z-index: 1;
+  }
+
+
+
+  .show {
+    display: block;
+  }
+
+  .upload {
+
+    position: absolute;
+    left: 45%;
+    text-align: center;
+
+  }
+
+  .dash li {
+
+    border-radius: 5px;
+    background-color: #f6f6f6;
+    padding: 20px;
+    height: 130px;
+    box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.3);
+    text-align: center;
+
+  }
+
+  .dash {
+    display: grid;
+    list-style-type: none;
+    grid-template-columns: auto auto auto auto;
+    column-gap: 50px;
+    padding-left: 5px;
+
+  }
+
+  #doses {
+
+    background-image: linear-gradient(to bottom right, rgba(74, 185, 178, 255), rgba(60, 176, 169, 255));
+
+    color: #fff;
+
+
+
+  }
+
+  #total {
+
+    background-image: linear-gradient(to bottom right, rgba(231, 67, 102, 255), rgba(224, 54, 90, 255));
+
+    color: #fff;
+
+
+
+  }
+
+  #deaths {
+
+    background-image: linear-gradient(to bottom right, #eb8c34, #db914b);
+
+    color: #fff;
+
+  }
+
+  .deaths {
+
+    background-image: linear-gradient(to bottom right, #eb8c34, #db914b);
+
+    color: #fff;
+
+  }
+
+  #recovered {
+
+    background-image: linear-gradient(to bottom right, rgba(74, 185, 178, 255), rgba(60, 176, 169, 255));
+
+    color: #fff;
+  }
+
+  .stuff {
+    display: grid;
+    grid-template-columns: auto auto;
+    position: absolute;
+    bottom: 0%;
+    right: 0%;
+    padding: 20px;
+
+  }
+
+  .inspired {
+    color: #000;
+
+  }
+
+  @keyframes intro1 {
+
+    0% {
+      margin-top: 100%;
+    }
+
+    50% {
+      margin-top: 20%;
+    }
+
+    70% {
+      margin-top: 20%;
+    }
+
+    100% {
+      margin-top: -50%;
+    }
+
+
+  }
+
+  .server-pass {
+
+    padding: 10px;
+    border-radius: 10px;
+    text-shadow: 0px 0px 150px rgba(0, 0, 0, 1);
+    color: #000;
+    margin-top: 20%;
+    z-index: 10;
+    animation-name: intro1;
+    animation-duration: 2.5s;
+    font-size: 120px;
+    text-align: center;
+
+  }
+
+  @keyframes intro1 {
+
+    0% {
+      margin-top: 100%;
+    }
+
+    50% {
+      margin-top: 20%;
+    }
+
+    70% {
+      margin-top: 20%;
+    }
+
+    100% {
+      margin-top: -50%;
+    }
+
+
+  }
+
+  @keyframes intro2 {
+
+    0% {
+      opacity: 0;
+      padding-top: 25px;
+    }
+
+    100% {
+      opacity: 100%;
+    }
+
+
+  }
+
+  .server-connect {
+    display: none;
+    padding: 10px;
+    text-shadow: 0px 0px 150px rgba(0, 0, 0, 1);
+    color: #000;
+    margin-top: 20%;
+    animation-name: intro2;
+    animation-duration: .5s;
+    font-size: 15px;
+    text-align: center;
+
+  }
+
+  body {
+    font-family: 'Carme', sans-serif;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: #242424;
+  }
+
+  *,
+  *:after,
+  *:before {
+    box-sizing: border-box;
+  }
+
+
+
+  .dialog {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+  }
+
+  .blurz {
+
+    filter: blur(8px);
+  }
+
+  .Details-content {
+    position: relative;
+    border-radius: 10px;
+    background-color: #f6f6f6;
+    margin: auto;
+    text-align: center;
+    padding: 10px;
+    width: 350px;
+  }
+
+
+
+  .Details-header {
+    padding: 2px 16px;
+    border-radius: 5px;
+    color: white;
+  }
+
+  .Details-body {
+
+    color: black;
+
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #2e2e2e;
+    border-radius: 10px;
+    transition-delay: 2s;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #474747;
+  }
+
+  .container {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 50px;
+    overflow: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .null {
+
+    background-color: #2e2e2e;
+    color: #fff;
+  }
+
+  .negative {
+
+    background-image: linear-gradient(to bottom right, rgba(74, 185, 178, 255), rgba(60, 176, 169, 255));
+    color: #fff;
+
+  }
+
+  .positive {
+
+    background-image: linear-gradient(to bottom right, rgba(231, 67, 102, 255), rgba(224, 54, 90, 255));
+    color: #fff;
+
+
+  }
+
+  h2 {
+    font-size: 26px;
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  h2 small {
+    font-size: 0.5em;
+  }
+
+  .responsive-table li {
+    border-radius: 3px;
+    padding: 25px 30px;
+    display: flex;
+    color: white;
+    justify-content: space-between;
+    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.2);
+    margin-bottom: 25px;
+  }
+
+  .responsive-table .table-header {
+    font-size: 14px;
+    text-transform: uppercase;
+    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    letter-spacing: 0.03em;
+  }
+
+  .responsive-table :hover {
+
+    cursor: pointer;
+  }
+
+  .responsive-table .table-row {
+    color: #fff;
+    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5);
+  }
+
+  .responsive-table .col-1 {
+    flex-basis: 20%;
+  }
+
+  .responsive-table .col-2 {
+    flex-basis: 25%;
+  }
+
+  .responsive-table .col-3 {
+    flex-basis: 17%;
+  }
+
+  .responsive-table .col-4 {
+    flex-basis: 26%;
+  }
+
+  .responsive-table .col-5 {
+    flex-basis: 20%;
+  }
+
+  .dark {
+    background-color: #f6f6f6;
+    color: black;
+    font-family: 'Carme', sans-serif;
+  }
+
+  heading {
+    font-size: 60px;
+    position: absolute;
+    text-align: center;
+    margin: auto;
+    top: 45%;
+    left: 30%;
+  }
+</style>
+
+<script>
+
+  function showupres() {
+
+    document.getElementById("resultupdate").style.display = "block"
+    document.getElementById("resbtn").style.display = "none"
+    document.getElementById("vacbtn").style.display = "none"
+    document.getElementById("usebtn").style.display = "none"
+    document.getElementById("delbtn").style.display = "none"
+
+  }
+
+  function showupvac() {
+
+    document.getElementById("vaccinatonupdate").style.display = "block"
+    document.getElementById("resbtn").style.display = "none"
+    document.getElementById("vacbtn").style.display = "none"
+    document.getElementById("usebtn").style.display = "none"
+    document.getElementById("delbtn").style.display = "none"
+
+  }
+
+  function showupuser() {
+
+    document.getElementById("userupdate").style.display = "block"
+    document.getElementById("resbtn").style.display = "none"
+    document.getElementById("vacbtn").style.display = "none"
+    document.getElementById("usebtn").style.display = "none"
+    document.getElementById("delbtn").style.display = "none"
+
+  }
+
+  function showdel() {
+
+    document.getElementById("userdelete").style.display = "block"
+    document.getElementById("resbtn").style.display = "none"
+    document.getElementById("vacbtn").style.display = "none"
+    document.getElementById("usebtn").style.display = "none"
+    document.getElementById("delbtn").style.display = "none"
+
+  }
+
+  function hideres() {
+
+    document.getElementById("resultupdate").style.display = "none"
+    document.getElementById("resbtn").style.display = "block"
+    document.getElementById("vacbtn").style.display = "block"
+    document.getElementById("usebtn").style.display = "block"
+    document.getElementById("delbtn").style.display = "block"
+
+  }
+
+  function hidevac() {
+
+    document.getElementById("vaccinatonupdate").style.display = "none"
+    document.getElementById("resbtn").style.display = "block"
+    document.getElementById("vacbtn").style.display = "block"
+    document.getElementById("usebtn").style.display = "block"
+    document.getElementById("delbtn").style.display = "block"
+
+  }
+
+  function hideupduser() {
+
+    document.getElementById("userupdate").style.display = "none"
+    document.getElementById("resbtn").style.display = "block"
+    document.getElementById("vacbtn").style.display = "block"
+    document.getElementById("usebtn").style.display = "block"
+    document.getElementById("delbtn").style.display = "block"
+
+  }
+
+  function hidedel() {
+
+    document.getElementById("userdelete").style.display = "none"
+    document.getElementById("resbtn").style.display = "block"
+    document.getElementById("vacbtn").style.display = "block"
+    document.getElementById("usebtn").style.display = "block"
+    document.getElementById("delbtn").style.display = "block"
+
+  }
+
+  //Adding user
+  function AddNewUser() {
+
+    var e = document.getElementById("addid").value;
+    var na = document.getElementById("addname").value;
+    var a = document.getElementById("addage").value;
+    var g = document.getElementById("addgender").value;
+    if (e != "" && na != "" && a != "" && g != "") {
+      pywebview.api.AddUser(e, na, a, g).then(Actd);
+    }
+    else {
+      document.getElementById("erroramessage").innerHTML = "Please Fill All Details";
+    }
+
+    document.getElementById("addid").value = "";
+    document.getElementById("addname").value = "";
+    document.getElementById("addage").value = "";
+    document.getElementById("addgender").value = "";
+  }
+
+
+  //Updating user
+  function UpdateUser(emup) {
+
+    var eup = document.getElementById("updid").value;
+    var naup = document.getElementById("updname").value;
+    var aup = document.getElementById("updage").value;
+    var gup = document.getElementById("updgender").value;
+    if (eup != "" && naup != "" && aup != "" && gup != "") {
+      pywebview.api.UpdateUserData(emup,eup, naup, aup, gup).then(Actd);
+    }
+    else {
+      document.getElementById("errormessage").innerHTML = "Please Fill All Details";
+    }
+
+  }
+
+  //Intro manager
+  function vaniintro1() {
+    document.getElementById("server-pass").style.display = 'none';
+    document.getElementById("server-connect").style.display = 'block';
+    pywebview.api.Connect().then(Actd)
+  }
+
+  //Adding a dely for animation
+  setTimeout(vaniintro1, 2450)
+
+  //Open dashboard when back is pressed
+  function opendashboard() {
+    document.getElementById("reports").style.display = 'none';
+    document.getElementById("Dashboard").style.display = 'block';
+  }
+
+  //filter UI manager
+  //----------------------
+  function togvac() {
+    document.getElementById("vaccupdate").classList.toggle("show");
+  }
+  var vac = 0
+
+  function Setvac(r) {
+    vac = r
+    document.getElementById("vaccupdate").classList.toggle("show");
+
+  }
+
+  function UpdateVac(e) {
+
+    datea = document.getElementById("vacdate").value;
+    pywebview.api.UpdateVacData(vac, datea, e).then(Actd)
+    hidevac()
+
+  }
+  var result = 0
+
+  function togres() {
+    document.getElementById("result").classList.toggle("show");
+  }
+
+  function Setresult(r) {
+    result = r
+    document.getElementById("result").classList.toggle("show");
+
+  }
+
+  function UpdateResult(e) {
+
+    datea = document.getElementById("resdate").value;
+    pywebview.api.UpdateData(result, datea, e).then(Actd)
+    hideres()
+
+  }
+  function DeleteUser(emid) {
+
+    pywebview.api.DeleteUser(emid).then(Actd)
+
+  }
+
+  var ke = 0
+  var kn = 0
+  var ka = 0
+  var ks = 0
+  var kv = 0
+
+  function togfilteremid() {
+    if (ke == 0) {
+      document.getElementById("filteremid").style.display = "block";
+      document.getElementById("filtername").style.display = "none";
+      document.getElementById("filterage").style.display = "none";
+      document.getElementById("filterstatus").style.display = "none";
+      document.getElementById("filtervac").style.display = "none";
+      ke = 1
+    } else {
+
+      document.getElementById("filteremid").style.display = "none";
+      document.getElementById("filtername").style.display = "none";
+      document.getElementById("filterage").style.display = "none";
+      document.getElementById("filterstatus").style.display = "none";
+      document.getElementById("filtervac").style.display = "none";
+      ke = 0
+    }
+  }
+
+  function togfiltername() {
+    if (kn == 0) {
+      document.getElementById("filteremid").style.display = "none";
+      document.getElementById("filtername").style.display = "block";
+      document.getElementById("filterage").style.display = "none";
+      document.getElementById("filterstatus").style.display = "none";
+      document.getElementById("filtervac").style.display = "none";
+      kn = 1
+    } else {
+
+      document.getElementById("filteremid").style.display = "none";
+      document.getElementById("filtername").style.display = "none";
+      document.getElementById("filterage").style.display = "none";
+      document.getElementById("filterstatus").style.display = "none";
+      document.getElementById("filtervac").style.display = "none";
+      kn = 0
+    }
+  }
+
+  function togfilterage() {
+    if (ka == 0) {
+      document.getElementById("filteremid").style.display = "none";
+      document.getElementById("filtername").style.display = "none";
+      document.getElementById("filterage").style.display = "block";
+      document.getElementById("filterstatus").style.display = "none";
+      document.getElementById("filtervac").style.display = "none";
+      ka = 1
+    } else {
+
+      document.getElementById("filteremid").style.display = "none";
+      document.getElementById("filtername").style.display = "none";
+      document.getElementById("filterage").style.display = "none";
+      document.getElementById("filterstatus").style.display = "none";
+      document.getElementById("filtervac").style.display = "none";
+      ka = 0
+    }
+  }
+
+  function togfilterstatus() {
+    if (ks == 0) {
+      document.getElementById("filteremid").style.display = "none";
+      document.getElementById("filtername").style.display = "none";
+      document.getElementById("filterage").style.display = "none";
+      document.getElementById("filterstatus").style.display = "block";
+      document.getElementById("filtervac").style.display = "none";
+      ks = 1
+    } else {
+
+      document.getElementById("filteremid").style.display = "none";
+      document.getElementById("filtername").style.display = "none";
+      document.getElementById("filterage").style.display = "none";
+      document.getElementById("filterstatus").style.display = "none";
+      document.getElementById("filtervac").style.display = "none";
+      ks = 0
+    }
+  }
+
+  function togfiltervac() {
+    if (kv == 0) {
+      document.getElementById("filteremid").style.display = "none";
+      document.getElementById("filtername").style.display = "none";
+      document.getElementById("filterage").style.display = "none";
+      document.getElementById("filterstatus").style.display = "none";
+      document.getElementById("filtervac").style.display = "block";
+      kv = 1
+
+    } else {
+
+      document.getElementById("filteremid").style.display = "none";
+      document.getElementById("filtername").style.display = "none";
+      document.getElementById("filterage").style.display = "none";
+      document.getElementById("filterstatus").style.display = "none";
+      document.getElementById("filtervac").style.display = "none";
+      kv = 0
+    }
+  }
+
+  //------------------
+
+
+  var detailsbox = document.getElementById("Details");
+
+
+  var addbox = document.getElementById("Add");
+
+  //connect to the sever once the module is ready
+
+  //showing details when a report is clicked
+  function ShowDetails(emid) {
+    document.getElementById("reports").classList.toggle("blurz");
+    var container = document.getElementById('Detail-Content')
+
+    container.innerHTML = "LOADING...";
+    pywebview.api.DisplayDetails(emid).then(Actd)
+    detailsbox.style.display = "block";
+
+  }
+
+  //display user box when called
+  function AddUser() {
+    document.getElementById("Add").style.display = "block";
+    document.getElementById("reports").classList.toggle("blurz");
+
+  }
+
+  //filter translator
+  var s = null
+  var v = null
+
+  function filter(d, t) {
+
+    if (t == 's') {
+      s = null
+      s = d
+
+    } else if (t == 'v') {
+      v = d
+
+    }
+
+    if (t == 'cs') {
+      s = null
+
+    } else if (t == 'cv') {
+      v = null
+
+    }
+
+    var n = document.getElementById('names').value;
+    var e = document.getElementById('emid').value;
+    var a = document.getElementById('age').value;
+    if (n == '') {
+      n = null
+
+    }
+    if (e == '') {
+      e = null
+    }
+    if (a == '') {
+      a = null
+    }
+    pywebview.api.filters(e, n, a, s, v).then(Actd)
+  }
+
+  //close the current box when the blured bg is clicked
+  window.onclick = function (event) {
+    if (event.target == detailsbox) {
+      detailsbox.style.display = "none";
+      document.getElementById("reports").classList.toggle("blurz");
+
+    } else if (event.target == addbox) {
+      addbox.style.display = "none";
+      document.getElementById("reports").classList.toggle("blurz");
+
+    }
+  }
+
+  //Python function translator
+  function Actd(data) {
+  console.log(data.type)
+    if (data.type == 'dashboard') {
+      //if the data is for the dashbord
+      document.getElementById('vac').innerHTML = data.vaccinated;
+      document.getElementById('case').innerHTML = data.cases;
+      document.getElementById('rec').innerHTML = data.recovered;
+      document.getElementById('ded').innerHTML = data.deaths;
+
+      new Chart("myChart", {
+        type: "line",
+        data: {
+          labels: data.xaxis,
+          datasets: [{
+            fill: false,
+            label: "Cases",
+            lineTension: 0,
+            backgroundColor: "#d18b3b",
+            borderColor: "#d18b3b",
+            data: data.ycases
+          }, {
+            fill: false,
+            lineTension: 0,
+            backgroundColor: "#FF7B72",
+            label: "Deceased",
+            borderColor: "#FF7B72",
+            data: data.ydeaths
+          },
+          {
+            fill: false,
+            label: "Recovered",
+            lineTension: 0,
+            backgroundColor: "#56D358",
+            borderColor: "#56D358",
+            data: data.yrecovered
+          }]
+        },
+        options: {
+          legend: { display: true },
+          scales: {
+            xAxes: [{ ticks: { min: 1, max: 30 } }],
+          }
+        }
+      });
+      if (data.cur == 'connect') {
+        document.getElementById('Dashboard').style.display = "block";
+        document.getElementById('connect').style.display = "none";
+      }
+    }
+
+    else if (data.type == 'details-content') {
+      //if the data is for the user details
+      var container = document.getElementById('Detail-Content')
+
+      container.innerHTML = data.html
+    }
+
+    else if (data.type == 'display') {
+      //update reports
+      pywebview.api.DisplayReports().then(Actd)
+    }
+
+    else if (data.type == 'reports') {
+      //if the data is for reports table
+      //if the data is for reports table
+      var container = document.getElementById('reports-table-content')
+
+      container.innerHTML = data.html
+    }
+
+    else if (data.type == 'reload') {
+      //if is to update all data
+      var container = document.getElementById('Detail-Content')
+
+      if (data.cur != "delete") {
+        container.innerHTML = "UPDATING...";
+        pywebview.api.DisplayDetails(data.emi).then(Actd)
+
+
+
+      } else {
+
+        container.innerHTML = "LOADING...";
+        detailsbox.style.display = "none";
+        document.getElementById("reports").classList.toggle("blurz");
+
+
+      }
+      setTimeout(function () { pywebview.api.DisplayReports().then(Actd) }, 100)
+      setTimeout(function () { pywebview.api.Rel().then(Actd) }, 200)
+
+    }
+
+    else if (data.cur == 'relall') {
+      //call reload to refresh data
+      pywebview.api.DisplayReports().then(Actd)
+      setTimeout(function () { pywebview.api.Rel().then(Actd) }, 3000)
+
+    }
+    else if(data.type==="eu"){
+
+      document.getElementById("errorumessage").innerHTML = data.error;
+
+    }
+    else if(data.type==="ea"){
+
+      document.getElementById("erroramessage").innerHTML = data.error;
+
+    }
+
+
+  }
+
+  //display reports
+  function Displayreports(title) {
+
+    if (title == "COVID Reports") {
+
+      pywebview.api.DisplayReports().then(Actd)
+      document.getElementById('reports').style.display = "block";
+      document.getElementById('Dashboard').style.display = "none";
+
+    }
+  }
+
+</script>
+
+</html>
