@@ -18,7 +18,7 @@ class Api:
         global db, sqls
         print("Connecting...")
         try:
-            sqls = sql.connect(host="localhost", user="root", passwd="2005", database="covid")
+            sqls = sql.connect(host="localhost", user="root", passwd="", database="covid")
             db = sqls.cursor()
 
             xaxis = []
