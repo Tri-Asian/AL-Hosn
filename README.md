@@ -1,3 +1,6 @@
 # AL-Hosn
 Yet a useless project
-<h1>hi</h1>
+
+create the database and table properties in mysql cmd using these code
+
+<code>create </code>
