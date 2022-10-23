@@ -292,13 +292,34 @@ class Api:
             since_pcr=''
             if reports_data[2] is not None:
                 since_pcr= (datetime.datetime.strptime(str(datetime.date.today()), "%Y-%m-%d")-datetime.datetime.strptime(str(reports_data[2]), "%Y-%m-%d")).days
+            
+            actions='''  <button class="btnz" id="usebtn" onclick="showupuser()" type="button">UPDATE USER DETAILS</button>
+        <button class="btnz" id="delbtn" onclick="showdel()" type="button">DELETE USER</button>      <div id="userupdate">
+      
+        <input id="updid" class="searcher" type="text" value="{}" placeholder="Enter Emirates ID"><br><br>
+
+        <input id="updname" class="searcher" type="text" value="{}"  placeholder="Enter Name"><br><br>
+
+        <input id="updage" class="searcher" type="number" value="{}"  placeholder="Enter Age"><br><br>
+
+        <input id="updgender" class="searcher" type="text" value="{}"  placeholder="Gender"><br><br>
+        <button class="btnz" onclick="UpdateUser(this.id)" id='{}' type="button">UPDATE USER DETAILS</button><br>
+        <p id="errorumessage"></p><br>
+        
+        <button class="btnz" onclick="hideupduser()" type="button">CANCEL</button>
+      </div>
+      <div id="userdelete">
+      <h5>Are You Sure To Delete All User Details?
+        <button class="btnz" id ="{}" onclick="DeleteUser(this.id)" type="button">Yes</button>
+        
+        <button class="btnz" onclick="hidedel()" type="button">CANCEL</button>
+      </div>'''
             if status!= "Deceased":
                 actions='''<div id="actions">
                 <center>
         <button class="btnz" id="resbtn" onclick="showupres()" type="button">UPDATE RESULT</button>
         <button class="btnz" id="vacbtn" onclick="showupvac()" type="button">UPDATE VACCINATION</button>
-        <button class="btnz" id="usebtn" onclick="showupuser()" type="button">UPDATE USER DETAILS</button>
-        <button class="btnz" id="delbtn" onclick="showdel()" type="button">DELETE USER</button>
+      
         <div id="resultupdate">
         <button onclick="togres()" class="filter-result">Result &nbsp;<i class="fi-rr-angle-small-down"></i></button>
               <div id="result" class="filter-content">
@@ -322,26 +343,7 @@ class Api:
         
         <button class="btnz" onclick="hidevac()" type="button">CANCEL</button>
       </div>
-      <div id="userupdate">
-      
-        <input id="updid" class="searcher" type="text" value="{}" placeholder="Enter Emirates ID"><br><br>
 
-        <input id="updname" class="searcher" type="text" value="{}"  placeholder="Enter Name"><br><br>
-
-        <input id="updage" class="searcher" type="number" value="{}"  placeholder="Enter Age"><br><br>
-
-        <input id="updgender" class="searcher" type="text" value="{}"  placeholder="Gender"><br><br>
-        <button class="btnz" onclick="UpdateUser(this.id)" id='{}' type="button">UPDATE USER DETAILS</button><br>
-        <p id="errorumessage"></p><br>
-        
-        <button class="btnz" onclick="hideupduser()" type="button">CANCEL</button>
-      </div>
-      <div id="userdelete">
-      <h5>Are You Sure To Delete All User Details?
-        <button class="btnz" id ="{}" onclick="DeleteUser(this.id)" type="button">Yes</button>
-        
-        <button class="btnz" onclick="hidedel()" type="button">CANCEL</button>
-      </div>
       </center>
       </div>'''.format(emid,emid,emid,name,user_table[2],gender,emid,emid)
 
