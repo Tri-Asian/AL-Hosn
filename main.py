@@ -211,7 +211,7 @@ class Api:
                 qrs = b64_string.decode('utf-8')
                 os.remove("temp.png")
             else:
-                qrs = reports_data[7]
+                qrs = reports_data[7].decode('utf-8')
 
             #Some more user data convertion
             gender=""
