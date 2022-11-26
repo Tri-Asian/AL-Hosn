@@ -73,7 +73,7 @@
       </ul><br><br>
       <p onclick="Displayreports(this.title)" title="COVID Reports"
         style="padding-right:50px;color:#4287f5;cursor: pointer;text-align:right;">View Reports</p><br><br><br>
-      <canvas id="myChart" style="width:100%;max-width:600px;color:#fff;"></canvas>
+      
 
 
 
@@ -1077,41 +1077,6 @@
       document.getElementById('rec').innerHTML = data.recovered;
       document.getElementById('ded').innerHTML = data.deaths;
 
-      new Chart("myChart", {
-        type: "line",
-        data: {
-          labels: data.xaxis,
-          datasets: [{
-            fill: false,
-            label: "Cases",
-            lineTension: 0,
-            backgroundColor: "#d18b3b",
-            borderColor: "#d18b3b",
-            data: data.ycases
-          }, {
-            fill: false,
-            lineTension: 0,
-            backgroundColor: "#FF7B72",
-            label: "Deceased",
-            borderColor: "#FF7B72",
-            data: data.ydeaths
-          },
-          {
-            fill: false,
-            label: "Recovered",
-            lineTension: 0,
-            backgroundColor: "#56D358",
-            borderColor: "#56D358",
-            data: data.yrecovered
-          }]
-        },
-        options: {
-          legend: { display: true },
-          scales: {
-            xAxes: [{ ticks: { min: 1, max: 30 } }],
-          }
-        }
-      });
       if (data.cur == 'connect') {
         document.getElementById('Dashboard').style.display = "block";
         document.getElementById('connect').style.display = "none";
