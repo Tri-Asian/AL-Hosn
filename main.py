@@ -5,6 +5,7 @@ import os
 import sys
 import mysql.connector as sql
 import webview
+from PIL import Image
 import qrcode
 
 print("Loading...")
@@ -18,7 +19,7 @@ class Api:
         global db, sqls
         print("Connecting...")
         try:
-            sqls = sql.connect(host="localhost", user="root", passwd="", database="covid")
+            sqls = sql.connect(host="localhost", user="root", passwd="2005", database="covid")
             db = sqls.cursor()
 
             xaxis = []
@@ -211,7 +212,7 @@ class Api:
                 qrs = b64_string.decode('utf-8')
                 os.remove("temp.png")
             else:
-                qrs = reports_data[7].decode('utf-8')
+                qrs = reports_data[7]
 
             #Some more user data convertion
             gender=""
@@ -313,10 +314,11 @@ class Api:
         <button class="btnz" id ="{}" onclick="DeleteUser(this.id)" type="button">Yes</button>
         
         <button class="btnz" onclick="hidedel()" type="button">CANCEL</button>
-      </div>'''
+      </div>'''.format(emid,name,user_table[2],gender,emid,emid)
             if status!= "Deceased":
                 actions='''<div id="actions">
                 <center>
+                {}
         <button class="btnz" id="resbtn" onclick="showupres()" type="button">UPDATE RESULT</button>
         <button class="btnz" id="vacbtn" onclick="showupvac()" type="button">UPDATE VACCINATION</button>
       
@@ -345,10 +347,8 @@ class Api:
       </div>
 
       </center>
-      </div>'''.format(emid,emid,emid,name,user_table[2],gender,emid,emid)
+      </div>'''.format(actions,emid,emid)
 
-            else:
-                actions=""
             html ='''
           <div class="Details-header {}">
           <h2>{}</h2>
